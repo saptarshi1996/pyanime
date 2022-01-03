@@ -65,3 +65,23 @@ def scrape_episode_list(url: str) -> list:
 
         print(e)
         return []
+
+
+def scrape_episode(url: str) -> list:
+    try:
+
+        print(url)
+
+        episode_url, download_url = "", ""
+
+        response: Response = requests.get(url=url, headers={ "User-Agent": USER_AGENT })
+        soup: BeautifulSoup = BeautifulSoup(response.text, "lxml")
+
+        episode_url = soup.find("iframe", { "id": "playerframe" })['src']
+        download_url = episode_url.replace("/embed/", "/playlist/") + ".m3u8"
+
+        return episode_url, download_url
+    
+    except Exception as e:
+
+        return []
