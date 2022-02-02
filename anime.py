@@ -10,14 +10,14 @@ from scraper import (
 
 
 def get_episode_url(end_point: str) -> str:
-    return url_list['base_url']+end_point
+    return url_list["base_url"] + end_point
 
 
 def search_anime(search_term: str) -> list:
     try:
 
-        search_url: str = url_list['search_url']+search_term
-        anime_list: list = search_scraper(url=search_url)
+        search_url = url_list["search_url"] + search_term
+        anime_list = search_scraper(url=search_url)
         return anime_list
 
     except Exception as e:
@@ -26,8 +26,8 @@ def search_anime(search_term: str) -> list:
 
 def search_anime_episode_list(anime: dict) -> list:
     try:
-        anime_page_url: str = get_episode_url(anime['url'])
-        episode_list: list = scrape_episode_list(anime_page_url)
+        anime_page_url = get_episode_url(anime["url"])
+        episode_list = scrape_episode_list(anime_page_url)
         return episode_list
     except Exception as e:
         print(e)
@@ -37,10 +37,10 @@ def search_anime_episode_list(anime: dict) -> list:
 def get_anime_episode(episode: dict) -> list:
     try:
 
-        episode_page_url: str = get_episode_url(episode['url'])
+        episode_page_url = get_episode_url(episode["url"])
         episode_url, download_url = scrape_episode(episode_page_url)
         return get_episode_url(episode_url), get_episode_url(download_url)
 
     except Exception as e:
         print(e)
-        return None, None
+        return [None, None]
